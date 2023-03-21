@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html >
+<!--From https://codepen.io/frytyler/pen/EGdtg-->
+<head>
+  <meta charset="UTF-8">
+  <title>Credit Card Defaulter Prediction</title>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+<style>
+	body  {
+	  background-color:#B0E0E6;
+	}
+	
+	.result {
+		margin: auto;
+		width: 35%;
+		border: 2px groove;
+	}
+	</style>
+</head>
+
+<body>	
+
+ <div class="predict">
+	<h2 style="margin: auto; width: 35%; padding: 1%; border: 2px solid; text-align: center;">Consisment Price Prediction</h2>
+
+     <!-- Main Input For Receiving Query to our ML -->
+    <form action="{{ url_for('predict')}}" method="post">
+
+	<!--	<fieldset style="float:left;height: 420px;">
+			<legend><b>Demographic data:</b></legend> -->
+
+			
+			<label for='Country'>Country:</label>
+			<select id="Country" name="Country">
+				
+			<option value="0">Congo, DRC</option>
+			<option value="1">Côte d'Ivoire</option>
+			<option value="2">Ethiopia</option>
+			<option value="3">Guyana</option>
+			<option value="4">Haiti</option>
+			<option value="5">Mozambique</option>
+			<option value="6">Nigeria</option>
+			<option value="7">Rwanda</option>
+			<option value="8">South Africa</option>
+			<option value="9">Tanzania</option>
+			<option value="10">Uganda</option>
+			<option value="11">Vietnam</option>
+			<option value="12">Zambia</option>
+			<option value="13">Zimbabwe</option>
+			<option value="14">Others</option>
+			</select>
+`		<br>
+		<br>
+		<br>
+		
+		<label for='Vendor INCO Term'>Vendor INCO Term:</label>
+		<select id='Vendor INCO Term' name='Vendor INCO Term'>
+		<option value="0">EXW </option>
+		<option value="1">FCA</option>
+		<option value="2">N/A - From RDC</option>
+		<option value="3">Others</option>
+		</select>
+			<br>
+			<br>
+			
+		<label for='Shipment Mode'>Shipment Mode:</label>
+		<select id='Shipment Mode' name='Shipment Mode'>
+		<option value="0">Air </option>
+		<option value="1">Air Charter</option>
+		<option value="2">Ocean</option>
+		<option value="3">Truck</option>
+		</select>
+
+		<br><br><br>
+		<label for="Line Item Quantity">Line Item Quantity:</label>
+		<input type="text",id='Line Item Quantity'name='Line Item Quantity' value="0">
+
+
+		<br><br><br>
+
+
+		<label for="Pack Price">Pack Price:</label>
+		<input type="text",id='Pack Price'name='Pack Price' value="0">
+		<br><br><br>
+		<label for="Unit Price">Unit Price:</label>
+		<input type="text",id='Unit Price'name='Unit Price' value="0">
+		
+		<br><br><br>
+			
+		<label for='Manufacturing Site'>Manufacturing Site:</label>
+		<select id="Manufacturing Site" name="Manufacturing Site">
+			   
+		<option value="0">China</option>   
+		<option value="1">Germany</option>
+		<option value="2">India</option>
+		<option value="3">Ireland</option>
+		<option value="4">Japan</option>
+		<option value="5">Mozambique</option>
+		<option value="6">Korea</option>
+		<option value="7">South Africa</option>
+		<option value="8">USA</option>
+		<option value="9">United Kingdom</option>
+		<option value="10">Others</option>
+
+		</select>
+		<br><br><br>
+		<label for="Weight (Kilograms)">Weight (Kilograms):</label>
+		<input type="text",id='Weight (Kilograms)'name='Weight (Kilograms)' value="0">
+		<br><br><br>
+			
+			<div style="float:left; margin-right: 1.5em;">
+					<label for="Fulfill Via_From RDC">Fulfill Via_From RDC</label><br>
+					<input name="Fulfill Via_From RDC" id="Fulfill Via_From RDC" min="0" max="1" type="number" value="0" required>
+			</div>
+			<br><br><br>
+
+			<div style="float:left; margin-right: 1.5em;">
+					<label for="Managed By_PMO - US">Managed By_PMO - US</label><br>
+					<input name="Managed By_PMO - US" id="Managed By_PMO - US" min="0" max="1" type="number" value="0" required>
+			</div>
+			<br><br><br>
+
+			<div style="float:left; margin-right: 1.5em;">
+				<label for="Product Group_HRDT">Product Group_HRDT</label><br>
+				<input name="Product Group_HRDT" id="Product Group_HRDT" min="0" max="1" type="number" value="0" required>
+		</div>
+		<br><br><br>
+
+			
+		<div style="float:left; margin-right: 1.5em;">
+			<label for="Product Group_uncommon">Product Group_uncommon</label><br>
+			<input name="Product Group_uncommon" id="Product Group_uncommon" min="0" max="1" type="number" value="0" required>
+	</div>
+	<br><br><br>
+
+		
+	<div style="float:left; margin-right: 1.5em;">
+		<label for="First Line Designation_Yes">First Line Designation_Yes</label><br>
+		<input name="First Line Designation_Yes" id="First Line Designation_Yes" min="0" max="1" type="number" value="0" required>
+	</div>
+	<br><br><br>
+		
+	<div class="result" align="center">
+		
+ <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
+		<!--- {% if prediction_text %} -->
+			<p style="padding:0.6%"> <br> {{ prediction_text }} <br> </p>
+
+    <!---    {% endif %}	 -->
+    
+	</div>
+ </div>
+
+</form>
+
+
+
+
+</body>
+</html>
