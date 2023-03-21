@@ -13,10 +13,6 @@ def home():
     return render_template('home.html')
 
 
-from jinja2 import Environment, FileSystemLoader
-
-env = Environment(loader=FileSystemLoader('C:/Users/User/Documents/logistics 2'))
-template = env.get_template('home.html')
 
 
 @app.route('/predict', methods=['POST'])
